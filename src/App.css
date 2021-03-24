@@ -1,0 +1,7 @@
+a {
+    text-decoration: none;
+}
+
+a, header, footer, #page {
+    padding-left: 0.5em;
+}

@@ -5,3 +5,7 @@ a {
 a, header, footer, #page {
     padding-left: 0.5em;
 }
+
+div.content {
+    margin: 10px 10px;
+}

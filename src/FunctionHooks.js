@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 
 const FunctionHooks = () => {
 
-    let itemFruits = []
-
-    const [itemFruit, setItemFruit] = useState(itemFruits)
+    const [itemFruit, setItemFruit] = useState([])
+    const [itemLocalFruit, setItemLocalFruit] = useState([])
     const [message, setMessage] = useState('');
 
     let divElement = useRef();
@@ -12,13 +11,14 @@ const FunctionHooks = () => {
     useEffect( () => {
         //console.log("useeffect")
 
-        fetch("http://www.json-generator.com/api/json/get/cfrsCsyEpu?indent=2")
+        fetch(process.env.FETCH_API)
         .then(result => {
             return result.json()
         })
         .then(data => {
             //console.log(data)
             setItemFruit(data)
+            setItemLocalFruit(data)
         })
 
         return(
@@ -33,18 +33,28 @@ const FunctionHooks = () => {
     }
 
     const onInputHandler = (event) => {
-        console.log(event.target.value)
+        //console.log(event.target.value)
 
         let { value } = event.target
 
         let search = new RegExp(value, 'ig')
 
-        const result = itemFruits.filter(itemFruit => {
-            return search.test(itemFruit.itemName)
+        const result = itemLocalFruit.filter(item => {
+            return search.test(item.itemName)
         })
-
-        //console.log(result)
+        
         setItemFruit(result)
+
+        /* fetch("http://www.json-generator.com/api/json/get/cfrsCsyEpu?indent=2")
+        .then(result => {
+            return result.json()
+        })
+        .then(data => {
+            const result = data.filter(item => {
+                return search.test(item.itemName)
+            })
+            setItemFruit(result)
+        }) */
     }
 
     return(
